@@ -1,6 +1,6 @@
 [submodule "multibuild"]
 	path = multibuild
-	url = https://github.com/matthew-brett/multibuild.git
+	url = https://github.com/HexDecimal/multibuild.git
 [submodule "libtcod-cffi"]
 	path = libtcod-cffi
 	url = https://github.com/HexDecimal/libtcod-cffi.git
