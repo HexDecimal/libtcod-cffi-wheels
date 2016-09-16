@@ -2,13 +2,13 @@ env:
     global:
         - REPO_DIR=libtcod-cffi
         # Commit from your-project that you want to build
-        - BUILD_COMMIT="35eeb11facd42372c6df577f858c06021f03e57a"
+        - BUILD_COMMIT="f5156fd7f7a96774c0979e39a5d4e3ab877ee66f"
         # pip dependencies to _build_ your project
         - BUILD_DEPENDS="cffi"
         # pip dependencies to _test_ your project.  Include any dependencies
         # that you need, that are also specified in BUILD_DEPENDS, this will be
         # a separate install.
-        - TEST_DEPENDS="cffi nose2 cov-core"
+        - TEST_DEPENDS=""
         - PLAT=x86_64
         - UNICODE_WIDTH=32
         - WHEEL_SDIR=wheels
@@ -89,4 +89,5 @@ script:
     - install_run $PLAT
 
 after_success:
-    - ls $WHEEL_SDIR
+    - pip install twine
+    - python -m twine upload -u $pypi_user -p $pypi_pass --skip-existing $WHEEL_SDIR/*
