@@ -19,3 +19,9 @@ function run_tests {
     python --version
     python -m nose2
 }
+
+if [ -n "$IS_OSX" ]; then
+    source config_osx.sh
+else
+    source config_manylinux.sh
+fi
