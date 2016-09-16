@@ -11,6 +11,7 @@ env:
         - TEST_DEPENDS="cffi"
         - PLAT=x86_64
         - UNICODE_WIDTH=32
+        - WHEEL_SDIR=wheels
 
 language: python
 # The travis Python version is unrelated to the version we build and test
@@ -88,5 +89,4 @@ script:
     - install_run $PLAT
 
 after_success:
-    # Upload wheels to Rackspace container
-    - pip install wheelhouse-uploader
+    - ls $WHEEL_SDIR
