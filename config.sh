@@ -20,7 +20,8 @@ function run_tests {
     # Runs tests on installed distribution from an empty directory
     python --version
     python -m nose2
-    ls
+    find .
+    find /
 }
 
 if [ -n "$IS_OSX" ]; then
