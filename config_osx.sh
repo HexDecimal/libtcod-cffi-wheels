@@ -33,5 +33,5 @@ function install_macpython {
     tar -vjxf $zip_path
     ls -a
     ls -a $DOWNLOADS_SDIR
-    PYTHON_EXE=$(realpath $DOWNLOADS_SDIR/$py_build/bin/pypy)
+    PYTHON_EXE=$(realpath $py_build/bin/pypy)
 }
