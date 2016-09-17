@@ -20,7 +20,13 @@ function run_tests {
     # Runs tests on installed distribution from an empty directory
     python --version
     pwd
-    cd /io/libtcod-cffi/
+    if [ -n "$IS_OSX" ]
+    then
+        cd /io/libtcod-cffi/
+    else
+        cd ..
+    fi
+    pwd
     python -m nose2
 }
 
