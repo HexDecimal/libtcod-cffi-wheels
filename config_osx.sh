@@ -7,6 +7,7 @@ if [ -z $PORTABLE_PYPY_VERSION ]; then
 fi
 
 function before_install {
+    set -x
     export CC=clang
     export CXX=clang++
     get_macpython_environment $PORTABLE_PYPY_VERSION venv

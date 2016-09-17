@@ -12,12 +12,14 @@ function pre_build {
         yum -y install SDL*
         yum -y install mesa-libGL-devel
     fi
+    ls
 }
 
 function run_tests {
     # Runs tests on installed distribution from an empty directory
     python --version
     python -m nose2
+    ls
 }
 
 if [ -n "$IS_OSX" ]; then
