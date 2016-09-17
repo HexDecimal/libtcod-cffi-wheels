@@ -19,9 +19,10 @@ function run_tests {
     set -x
     # Runs tests on installed distribution from an empty directory
     python --version
-    python -m nose2
     find .
-    find /
+    ls -a
+    cd /io/libtcod-cffi/
+    python -m nose2
 }
 
 if [ -n "$IS_OSX" ]; then
