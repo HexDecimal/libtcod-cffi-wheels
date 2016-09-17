@@ -5,17 +5,20 @@
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
+    set -x
     if [ -n "$IS_OSX" ]
     then
         brew install sdl
     else
         yum -y install SDL*
         yum -y install mesa-libGL-devel
+        yum -y install libffi-devel
     fi
     ls
 }
 
 function run_tests {
+    set -x
     # Runs tests on installed distribution from an empty directory
     python --version
     python -m nose2

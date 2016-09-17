@@ -23,7 +23,7 @@ function install_macpython {
     # sets $PYTHON_EXE variable to python executable
     local py_version=$1 # $(fill_pyver $1)
     #local py_stripped=$(strip_ver_suffix $py_version)
-    local py_build=pypy2-$py_version-osx64
+    local py_build=pypy2-v$py_version-osx64
     local py_zip=$py_build.tar.bz2
     local zip_path=$DOWNLOADS_SDIR/$py_zip
     mkdir -p $DOWNLOADS_SDIR
