@@ -22,9 +22,9 @@ function run_tests {
     pwd
     if [ -n "$IS_OSX" ]
     then
-        cd /io/libtcod-cffi/
-    else
         cd ..
+    else
+        cd /io/libtcod-cffi/
     fi
     pwd
     python -m nose2
