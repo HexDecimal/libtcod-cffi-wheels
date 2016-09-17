@@ -32,5 +32,11 @@ function install_macpython {
     #untar $zip_path
     tar vjxf $zip_path
     tar -vjxf $zip_path
+    tar jxf $zip_path
+    tar -jxf $zip_path
+    cd $DOWNLOADS_SDIR
+    tar vjxf $py_zip
+    tar -vjxf $py_zip
+    cd ..
     PYTHON_EXE=$(realpath $DOWNLOADS_SDIR/$py_build/bin/pypy)
 }
