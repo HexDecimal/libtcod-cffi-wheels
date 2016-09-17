@@ -27,16 +27,9 @@ function install_macpython {
     local py_zip=$py_build.tar.bz2
     local zip_path=$DOWNLOADS_SDIR/$py_zip
     mkdir -p $DOWNLOADS_SDIR
-    curl $PYPY_URL/${py_zip} > $zip_path
+    #curl $PYPY_URL/${py_zip} > $zip_path
+    wget $PYPY_URL/${py_zip} -P $DOWNLOADS_SDIR
     ls -a $DOWNLOADS_SDIR
-    #untar $zip_path
-    tar vjxf $zip_path
-    tar -vjxf $zip_path
-    tar jxf $zip_path
-    tar -jxf $zip_path
-    cd $DOWNLOADS_SDIR
-    tar vjxf $py_zip
-    tar -vjxf $py_zip
-    cd ..
+    untar $zip_path
     PYTHON_EXE=$(realpath $DOWNLOADS_SDIR/$py_build/bin/pypy)
 }
