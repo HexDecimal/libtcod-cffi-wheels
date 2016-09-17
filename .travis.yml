@@ -2,7 +2,7 @@ env:
     global:
         - REPO_DIR=libtcod-cffi
         # Commit from your-project that you want to build
-        - BUILD_COMMIT="0095a4b0111c4335e5e5951018efc52c9f5ab4bd"
+        - BUILD_COMMIT="ca9193ad9c4c8c54c5d4557538f47c12db847a75"
         # pip dependencies to _build_ your project
         - BUILD_DEPENDS="cffi"
         # pip dependencies to _test_ your project.  Include any dependencies
