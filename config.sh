@@ -19,8 +19,7 @@ function run_tests {
     set -x
     # Runs tests on installed distribution from an empty directory
     python --version
-    find .
-    ls -a
+    pwd
     cd /io/libtcod-cffi/
     python -m nose2
 }
