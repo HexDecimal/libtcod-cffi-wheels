@@ -10,9 +10,7 @@ function pre_build {
     then
         brew install sdl
     else
-        yum -y install SDL*
-        yum -y install mesa-libGL-devel
-        yum -y install libffi-devel
+        yum -y -v install SDL* mesa-libGL-devel libffi-devel
     fi
     ls
 }
