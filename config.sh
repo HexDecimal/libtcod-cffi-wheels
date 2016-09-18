@@ -19,10 +19,9 @@ function run_tests {
     set -x
     # Runs tests on installed distribution from an empty directory
     python --version
-    find /
     if [ -n "$IS_OSX" ]
     then
-        cd ..
+        cd $TRAVIS_BUILD_DIR
     else
         cd /io/libtcod-cffi/
     fi
