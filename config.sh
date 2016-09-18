@@ -25,6 +25,7 @@ function run_tests {
     else
         cd /io/libtcod-cffi/
     fi
+    ls -a
     python -m nose2
 }
 
