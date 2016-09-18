@@ -22,11 +22,11 @@ function install_python {
     # Picks an implementation of Python determined by the current enviroment
     # variables then installs it
     # Sub-function will set $PYTHON_EXE variable to the python executable
-    if [ -n "$PYTHON_VERSION" ]; then
+    if [ -n "$PYPY_VERSION" ]; then
+        install_manylinux_python $PYPY_VERSION
+    elif [ -n "$PYTHON_VERSION" ]; then
         export PATH="$(cpython_path $PYTHON_VERSION $UNICODE_WIDTH)/bin:$PATH"
         export PYTHON_EXE="python"
-    elif [ -n "$PYPY_VERSION" ]; then
-        install_manylinux_python $PYPY_VERSION
     else
         echo "config error: "
         echo "    expected PYTHON_VERSION or PYPY_VERSION enviroment variable"
@@ -34,7 +34,40 @@ function install_python {
     fi
 }
 
+
+function build_multilinux {
+    # Runs passed build commands in manylinux container
+    #
+    # Depends on
+    #     MB_PYTHON_VERSION
+    #     UNICODE_WIDTH (optional)
+    #     BUILD_DEPENDS (optional)
+    #     MANYLINUX_URL (optional)
+    #     WHEEL_SDIR (optional)
+    local plat=$1
+    [ -z "$plat" ] && echo "plat not defined" && exit 1
+    local build_cmds="$2"
+    local docker_image=quay.io/pypa/manylinux1_$plat
+    docker pull $docker_image
+    docker run --rm \
+        -e BUILD_COMMANDS="$build_cmds" \
+        -e PYTHON_VERSION="$MB_PYTHON_VERSION" \
+        -e PYPY_VERSION \
+        -e UNICODE_WIDTH="$UNICODE_WIDTH" \
+        -e BUILD_COMMIT="$BUILD_COMMIT" \
+        -e WHEEL_SDIR="$WHEEL_SDIR" \
+        -e MANYLINUX_URL="$MANYLINUX_URL" \
+        -e BUILD_DEPENDS="$BUILD_DEPENDS" \
+        -e REPO_DIR="$repo_dir" \
+        -e DOWNLOADS_SDIR \
+        -e PLAT="$PLAT" \
+        -v $PWD:/io \
+        $docker_image /io/$MULTIBUILD_DIR/docker_build_wrap.sh
+}
+
 if [ -f /.dockerenv ]; then
     set -x
-    get_python_environment venv
+    if [ -n "$PYPY_VERSION" ]; then
+        get_python_environment venv
+    fi
 fi
