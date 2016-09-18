@@ -41,6 +41,7 @@ matrix:
 before_install:
     - source multibuild/common_utils.sh
     - source multibuild/travis_steps.sh
+    - source config.sh
     - before_install
 
 install:
