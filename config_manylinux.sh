@@ -2,8 +2,6 @@
 
 PORTABLE_PYPY_URL=https://bitbucket.org/squeaky/portable-pypy/downloads
 
-https://bitbucket.org/squeaky/portable-pypy/downloads/pypy-5.4.1-linux_i686-portable.tar.bz2
-
 function install_manylinux_python {
     # Installs portable PyPy
     # Parameter $version
