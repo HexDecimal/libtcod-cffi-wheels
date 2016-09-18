@@ -52,22 +52,23 @@ function build_multilinux {
     docker run --rm \
         -e BUILD_COMMANDS="$build_cmds" \
         -e PYTHON_VERSION="$MB_PYTHON_VERSION" \
-        -e PYPY_VERSION \
+        -e PYPY_VERSION="$PYPY_VERSION" \
         -e UNICODE_WIDTH="$UNICODE_WIDTH" \
         -e BUILD_COMMIT="$BUILD_COMMIT" \
         -e WHEEL_SDIR="$WHEEL_SDIR" \
         -e MANYLINUX_URL="$MANYLINUX_URL" \
         -e BUILD_DEPENDS="$BUILD_DEPENDS" \
         -e REPO_DIR="$repo_dir" \
-        -e DOWNLOADS_SDIR \
+        -e DOWNLOADS_SDIR="$DOWNLOADS_SDIR" \
         -e PLAT="$PLAT" \
         -v $PWD:/io \
         $docker_image /io/$MULTIBUILD_DIR/docker_build_wrap.sh
 }
 
+set -x
 if [ -f /.dockerenv ]; then
-    set -x
     if [ -n "$PYPY_VERSION" ]; then
         get_python_environment venv
     fi
 fi
+set +x
