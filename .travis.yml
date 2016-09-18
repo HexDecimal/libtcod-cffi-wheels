@@ -28,18 +28,15 @@ matrix:
   include:
     - os: linux
       env:
-        - MB_PYTHON_VERSION=2.7
-        - PORTABLE_PYPY_VERSION=5.4.1
+        - PYPY_VERSION=5.4.1
     - os: linux
       env:
-        - MB_PYTHON_VERSION=2.7
+        - PYPY_VERSION=5.4.1
         - PLAT=i686
-        - PORTABLE_PYPY_VERSION=5.4.1
     - os: osx
       language: generic
       env:
-        - MB_PYTHON_VERSION=2.7
-        - PORTABLE_PYPY_VERSION=5.4.1
+        - PYPY_VERSION=5.4.1
 
 before_install:
     - source multibuild/common_utils.sh

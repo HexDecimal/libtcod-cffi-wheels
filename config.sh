@@ -21,12 +21,13 @@ function run_tests {
     python --version
     if [ -n "$IS_OSX" ]
     then
-        cd $TRAVIS_BUILD_DIR
+        cd $TRAVIS_BUILD_DIR/$REPO_DIR
     else
         cd /io/libtcod-cffi/
     fi
     ls -a
-    python -m nose2
+    #python -m nose2
+    python -c "import tcod"
 }
 
 if [ -n "$IS_OSX" ]; then
