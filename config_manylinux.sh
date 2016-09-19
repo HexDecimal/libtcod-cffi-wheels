@@ -14,7 +14,7 @@ function install_manylinux_python {
     local py_zip=$py_build.tar.bz2
     local zip_path=$DOWNLOADS_SDIR/$py_zip
     mkdir -p $DOWNLOADS_SDIR
-    wget $PORTABLE_PYPY_URL/${py_zip} -O $DOWNLOADS_SDIR/$py_zip
+    wget -nv $PORTABLE_PYPY_URL/${py_zip} -O $DOWNLOADS_SDIR/$py_zip
     untar $zip_path
     PYTHON_EXE=$(realpath $py_build/bin/pypy)
 }
@@ -54,7 +54,6 @@ function build_multilinux {
     docker run --rm \
         -e BUILD_COMMANDS="$build_cmds" \
         -e PYTHON_VERSION="$MB_PYTHON_VERSION" \
-        -e PYPY_VIRTUALENV="venv" \
         -e PYPY_VERSION="$PYPY_VERSION" \
         -e UNICODE_WIDTH="$UNICODE_WIDTH" \
         -e BUILD_COMMIT="$BUILD_COMMIT" \
@@ -67,6 +66,7 @@ function build_multilinux {
         -v $PWD:/io \
         $docker_image /io/$MULTIBUILD_DIR/docker_build_wrap.sh
 }
+
 
 function make_workon_venv {
     # Make a virtualenv in given directory ('venv' default)
@@ -110,10 +110,40 @@ function install_pip {
 }
 export SUDO=sudo
 
-set -x
-if [ -n "$PYPY_VIRTUALENV" ]; then
-    export SUDO=""
-    get_python_environment pypy_venv
-    python --version
+if [ -f /.dockerenv ]; then;
+    set -x
+    if [ -n "$PYPY_VERSION" ]; then
+        export SUDO=""
+        get_python_environment pypy_venv
+        python --version
+    fi
+    set +x
+    return
 fi
-set +x
+
+function install_run {
+    # Install wheel, run tests
+    #
+    # In fact wraps the actual work which happens in the container.
+    #
+    # Depends on
+    #  PLAT (can be passed in as argument)
+    #  MB_PYTHON_VERSION
+    #  UNICODE_WIDTH (optional)
+    #  WHEEL_SDIR (optional)
+    #  MANYLINUX_URL (optional)
+    #  TEST_DEPENDS  (optional)
+    local plat=${1:-$PLAT}
+    bitness=$([ "$plat" == i686 ] && echo 32 || echo 64)
+    local docker_image="matthewbrett/trusty:$bitness"
+    docker pull $docker_image
+    docker run --rm \
+        -e PYTHON_VERSION="$MB_PYTHON_VERSION" \
+        -e PYPY_VERSION="$PYPY_VERSION" \
+        -e UNICODE_WIDTH="$UNICODE_WIDTH" \
+        -e WHEEL_SDIR="$WHEEL_SDIR" \
+        -e MANYLINUX_URL="$MANYLINUX_URL" \
+        -e TEST_DEPENDS="$TEST_DEPENDS" \
+        -v $PWD:/io \
+        $docker_image /io/$MULTIBUILD_DIR/docker_test_wrap.sh
+}
