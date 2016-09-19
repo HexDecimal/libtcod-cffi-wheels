@@ -55,6 +55,7 @@ function build_multilinux {
         -e BUILD_COMMANDS="$build_cmds" \
         -e PYTHON_VERSION="$MB_PYTHON_VERSION" \
         -e PYPY_VIRTUALENV="venv" \
+        -e PYPY_VERSION="$PYPY_VERSION" \
         -e UNICODE_WIDTH="$UNICODE_WIDTH" \
         -e BUILD_COMMIT="$BUILD_COMMIT" \
         -e WHEEL_SDIR="$WHEEL_SDIR" \
