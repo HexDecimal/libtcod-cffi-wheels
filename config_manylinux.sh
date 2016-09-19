@@ -116,6 +116,7 @@ if [ -f /.dockerenv ]; then
     if [ -n "$PYPY_VERSION" ]; then
         export SUDO=""
         if [ -d "pypy_venv" ]; then
+            export SUDO=sudo
             pypy_venv/bin/activate
         else
             get_python_environment pypy_venv
