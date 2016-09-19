@@ -79,7 +79,7 @@ function build_multilinux {
 
 set -x
 if [ -n "$PYPY_VIRTUALENV" ]; then
-    source /io/$PYPY_VIRTUALENV/bin/activate
+    get_python_environment pypy_venv
     python --version
 fi
 set +x
