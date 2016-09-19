@@ -85,10 +85,10 @@ function make_workon_venv {
 
 function remove_travis_ve_pip {
     # Remove travis installs of virtualenv and pip
-    if [ "$(sudo which virtualenv)" == /usr/local/bin/virtualenv ]; then
+    if [ "$($SUDO which virtualenv)" == /usr/local/bin/virtualenv ]; then
         $SUDO pip uninstall -y virtualenv;
     fi
-    if [ "$(sudo which pip)" == /usr/local/bin/pip ]; then
+    if [ "$($SUDO which pip)" == /usr/local/bin/pip ]; then
         $SUDO pip uninstall -y pip;
     fi
 }
