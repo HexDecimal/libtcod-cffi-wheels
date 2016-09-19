@@ -9,12 +9,12 @@ function install_manylinux_python {
     # Version given in major or major.minor or major.minor.micro e.g
     # "3" or "3.4" or "3.4.1".
     # sets $PYTHON_EXE variable to python executable
-    local pp_version=$1 # $(fill_pyver $1)
-    local pp_build=pypy-$py_version-$(get_platform)-portable
-    local pp_zip=$py_build.tar.bz2
-    local zip_path=$DOWNLOADS_SDIR/$pp_zip
+    local py_version=$1 # $(fill_pyver $1)
+    local py_build=pypy-$py_version-$(get_platform)-portable
+    local py_zip=$py_build.tar.bz2
+    local zip_path=$DOWNLOADS_SDIR/$py_zip
     mkdir -p $DOWNLOADS_SDIR
-    wget $PORTABLE_PYPY_URL/${pp_zip} -P $DOWNLOADS_SDIR
+    wget $PORTABLE_PYPY_URL/${py_zip} -P $DOWNLOADS_SDIR
     untar $zip_path
     PYTHON_EXE=$(realpath $py_build/bin/pypy)
 }
