@@ -3,6 +3,16 @@
 PORTABLE_PYPY_URL=https://bitbucket.org/squeaky/portable-pypy/downloads
 DOWNLOADS_SDIR=downloads
 
+function before_install {
+    # Install a virtualenv to work in.
+    get_python_environment venv
+
+    #virtualenv --python=python venv
+    #source venv/bin/activate
+    python --version # just to check
+    #pip install --upgrade pip wheel
+}
+
 function install_manylinux_python {
     # Installs portable PyPy
     # Parameter $version
@@ -45,7 +55,6 @@ function build_multilinux {
     #     BUILD_DEPENDS (optional)
     #     MANYLINUX_URL (optional)
     #     WHEEL_SDIR (optional)
-    get_python_environment pypy_venv
 
     local plat=$1
     [ -z "$plat" ] && echo "plat not defined" && exit 1
@@ -55,7 +64,7 @@ function build_multilinux {
     docker run --rm \
         -e BUILD_COMMANDS="$build_cmds" \
         -e PYTHON_VERSION="$MB_PYTHON_VERSION" \
-        -e PYPY_VIRTUALENV="pypy_venv" \
+        -e PYPY_VIRTUALENV="venv" \
         -e UNICODE_WIDTH="$UNICODE_WIDTH" \
         -e BUILD_COMMIT="$BUILD_COMMIT" \
         -e WHEEL_SDIR="$WHEEL_SDIR" \
