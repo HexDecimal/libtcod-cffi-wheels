@@ -93,9 +93,36 @@ function make_workon_venv {
     PIP_CMD=$venv_dir/bin/pip
 }
 
+function remove_travis_ve_pip {
+    # Remove travis installs of virtualenv and pip
+    if [ "$(sudo which virtualenv)" == /usr/local/bin/virtualenv ]; then
+        $SUDO pip uninstall -y virtualenv;
+    fi
+    if [ "$(sudo which pip)" == /usr/local/bin/pip ]; then
+        $SUDO pip uninstall -y pip;
+    fi
+}
+
+function install_pip {
+    # Generic install pip
+    # Gets needed version from version implied by $PYTHON_EXE
+    # Installs pip into python given by $PYTHON_EXE
+    # Assumes pip will be installed into same directory as $PYTHON_EXE
+    check_python
+    mkdir -p $DOWNLOADS_SDIR
+    curl $GET_PIP_URL > $DOWNLOADS_SDIR/get-pip.py
+    # Travis VMS now install pip for system python by default - force install
+    # even if installed already
+    $SUDO $PYTHON_EXE $DOWNLOADS_SDIR/get-pip.py --ignore-installed
+    local py_mm=`get_py_mm`
+    PIP_CMD="$SUDO `dirname $PYTHON_EXE`/pip$py_mm"
+}
+export SUDO=sudo
+
 set -x
 if [ -n "$PYPY_VIRTUALENV" ]; then
-    source /io/$PYPY_VIRTUALENV/bin/activate
+    export SUDO=""
+    get_python_environment pypy_venv
     python --version
 fi
 set +x
