@@ -116,7 +116,8 @@ if [ -f /.dockerenv ]; then
     if [ -n "$PYPY_VERSION" ]; then
         export SUDO=""
         if [ -d "pypy_venv" ]; then
-            get_python_environment pypy_venv2
+            source pypy_venv/bin/activate
+            pip freeze | xargs pip uninstall -y
         else
             get_python_environment pypy_venv
         fi
