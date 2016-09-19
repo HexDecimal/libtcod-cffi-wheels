@@ -110,7 +110,8 @@ function install_pip {
 }
 export SUDO=sudo
 
-if [ -f /.dockerenv ]; then;
+set -x
+if [ -f /.dockerenv ]; then
     set -x
     if [ -n "$PYPY_VERSION" ]; then
         export SUDO=""
@@ -120,6 +121,7 @@ if [ -f /.dockerenv ]; then;
     set +x
     return
 fi
+set +x
 
 function install_run {
     # Install wheel, run tests
