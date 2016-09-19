@@ -77,9 +77,25 @@ function build_multilinux {
         $docker_image /io/$MULTIBUILD_DIR/docker_build_wrap.sh
 }
 
+function make_workon_venv {
+    # Make a virtualenv in given directory ('venv' default)
+    # Set $PYTHON_EXE, $PIP_CMD to virtualenv versions
+    # Parameter $venv_dir
+    #    directory for virtualenv
+    local venv_dir=$1
+    if [ -z "$venv_dir" ]; then
+        venv_dir="venv"
+    fi
+    venv_dir=`abspath $venv_dir`
+    check_python
+    $VIRTUALENV_CMD --relocatable --python=$PYTHON_EXE $venv_dir
+    PYTHON_EXE=$venv_dir/bin/python
+    PIP_CMD=$venv_dir/bin/pip
+}
+
 set -x
 if [ -n "$PYPY_VIRTUALENV" ]; then
-    get_python_environment pypy_venv
+    source /io/$PYPY_VIRTUALENV/bin/activate
     python --version
 fi
 set +x
