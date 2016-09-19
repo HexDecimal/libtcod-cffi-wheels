@@ -3,16 +3,6 @@
 PORTABLE_PYPY_URL=https://bitbucket.org/squeaky/portable-pypy/downloads
 DOWNLOADS_SDIR=downloads
 
-function before_install {
-    # Install a virtualenv to work in.
-    get_python_environment venv
-
-    #virtualenv --python=python venv
-    #source venv/bin/activate
-    python --version # just to check
-    #pip install --upgrade pip wheel
-}
-
 function install_manylinux_python {
     # Installs portable PyPy
     # Parameter $version
@@ -88,7 +78,7 @@ function make_workon_venv {
     fi
     venv_dir=`abspath $venv_dir`
     check_python
-    $VIRTUALENV_CMD --relocatable --python=$PYTHON_EXE $venv_dir
+    $VIRTUALENV_CMD --python=$PYTHON_EXE $venv_dir
     PYTHON_EXE=$venv_dir/bin/python
     PIP_CMD=$venv_dir/bin/pip
 }
