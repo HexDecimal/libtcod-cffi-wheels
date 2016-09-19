@@ -133,8 +133,6 @@ if [ -f /.dockerenv ]; then
         if [ -d "pypy_venv" ]; then
             source pypy_venv/bin/activate
             pip freeze
-            virtualenv --clear pypy_venv
-            pip freeze
         else
             get_python_environment pypy_venv
         fi
