@@ -45,7 +45,6 @@ function build_multilinux {
     #     BUILD_DEPENDS (optional)
     #     MANYLINUX_URL (optional)
     #     WHEEL_SDIR (optional)
-    set -x
     get_python_environment venv
 
     local plat=$1
@@ -56,7 +55,7 @@ function build_multilinux {
     docker run --rm \
         -e BUILD_COMMANDS="$build_cmds" \
         -e PYTHON_VERSION="$MB_PYTHON_VERSION" \
-        -e PYPY_VERSION="$PYPY_VERSION" \
+        -e PYPY_VIRTUALENV="venv" \
         -e UNICODE_WIDTH="$UNICODE_WIDTH" \
         -e BUILD_COMMIT="$BUILD_COMMIT" \
         -e WHEEL_SDIR="$WHEEL_SDIR" \
@@ -70,10 +69,8 @@ function build_multilinux {
 }
 
 set -x
-if [ -f /.dockerenv ]; then
-    if [ -n "$PYPY_VERSION" ]; then
-        source /io/venv/bin/activate
-        python --version
-    fi
+if [ -n "$PYPY_VIRTUALENV" ]; then
+    source /io/$PYPY_VIRTUALENV/bin/activate
+    python --version
 fi
 set +x
