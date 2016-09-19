@@ -45,6 +45,9 @@ function build_multilinux {
     #     BUILD_DEPENDS (optional)
     #     MANYLINUX_URL (optional)
     #     WHEEL_SDIR (optional)
+    set -x
+    get_python_environment venv
+
     local plat=$1
     [ -z "$plat" ] && echo "plat not defined" && exit 1
     local build_cmds="$2"
@@ -69,7 +72,8 @@ function build_multilinux {
 set -x
 if [ -f /.dockerenv ]; then
     if [ -n "$PYPY_VERSION" ]; then
-        get_python_environment venv
+        source /io/venv/bin/activate
+        python --version
     fi
 fi
 set +x
