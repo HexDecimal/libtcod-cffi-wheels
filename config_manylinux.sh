@@ -10,7 +10,7 @@ function install_manylinux_python {
     # "3" or "3.4" or "3.4.1".
     # sets $PYTHON_EXE variable to python executable
     local py_version=$1 # $(fill_pyver $1)
-    local py_build=pypy-$py_version-$(get_platform)-portable
+    local py_build="pypy-$py_version-linux_$(get_platform)-portable"
     local py_zip=$py_build.tar.bz2
     local zip_path=$DOWNLOADS_SDIR/$py_zip
     mkdir -p $DOWNLOADS_SDIR
