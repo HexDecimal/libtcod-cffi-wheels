@@ -101,7 +101,7 @@ function install_pip {
     # Assumes pip will be installed into same directory as $PYTHON_EXE
     check_python
     mkdir -p $DOWNLOADS_SDIR
-    wget -nv --no-check-certificate $GET_PIP_URL -O $DOWNLOADS_SDIR/get-pip.py
+    curl $GET_PIP_URL > $DOWNLOADS_SDIR/get-pip.py
     # Travis VMS now install pip for system python by default - force install
     # even if installed already
     $SUDO $PYTHON_EXE $DOWNLOADS_SDIR/get-pip.py --ignore-installed
@@ -115,7 +115,11 @@ if [ -f /.dockerenv ]; then
     set -x
     if [ -n "$PYPY_VERSION" ]; then
         export SUDO=""
-        get_python_environment pypy_venv
+        if [ -d "pypy_venv" ]; then
+            pypy_venv/bin/activate
+        else
+            get_python_environment pypy_venv
+        fi
         python --version
     fi
     set +x
