@@ -117,7 +117,8 @@ if [ -f /.dockerenv ]; then
         export SUDO=""
         if [ -d "pypy_venv" ]; then
             source pypy_venv/bin/activate
-            wipeenv
+            pip freeze
+            virtualenv --clear pypy_venv
             pip freeze
         else
             get_python_environment pypy_venv
