@@ -101,7 +101,7 @@ function install_pip {
     # Assumes pip will be installed into same directory as $PYTHON_EXE
     check_python
     mkdir -p $DOWNLOADS_SDIR
-    curl $GET_PIP_URL > $DOWNLOADS_SDIR/get-pip.py
+    wget -nv $GET_PIP_URL -O $DOWNLOADS_SDIR/get-pip.py
     # Travis VMS now install pip for system python by default - force install
     # even if installed already
     $SUDO $PYTHON_EXE $DOWNLOADS_SDIR/get-pip.py --ignore-installed
