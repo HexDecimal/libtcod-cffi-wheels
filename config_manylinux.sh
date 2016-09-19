@@ -14,7 +14,7 @@ function install_manylinux_python {
     local pp_zip=$py_build.tar.bz2
     local zip_path=$DOWNLOADS_SDIR/$pp_zip
     mkdir -p $DOWNLOADS_SDIR
-    wget $PYPY_URL/${pp_zip} -P $DOWNLOADS_SDIR
+    wget $PORTABLE_PYPY_URL/${pp_zip} -P $DOWNLOADS_SDIR
     untar $zip_path
     PYTHON_EXE=$(realpath $py_build/bin/pypy)
 }
