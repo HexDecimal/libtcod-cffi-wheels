@@ -108,11 +108,26 @@ function install_pip {
     local py_mm=`get_py_mm`
     PIP_CMD="$SUDO `dirname $PYTHON_EXE`/pip$py_mm"
 }
+
+function repair_wheelhouse {
+    local in_dir=$1
+    local out_dir=${2:-$in_dir}
+    for whl in $in_dir/*.whl; do
+        if [[ $whl == *none-any.whl ]]; then  # Pure Python wheel
+            if [ "$in_dir" != "$out_dir" ]; then cp $whl $out_dir; fi
+        else
+            auditwheel show $whl
+            auditwheel repair $whl -w $out_dir/
+            # Remove unfixed if writing into same directory
+            if [ "$in_dir" == "$out_dir" ]; then rm $whl; fi
+        fi
+    done
+    chmod -R a+rwX $out_dir
+}
+
 export SUDO=sudo
 
-set -x
 if [ -f /.dockerenv ]; then
-    set -x
     if [ -n "$PYPY_VERSION" ]; then
         export SUDO=""
         if [ -d "pypy_venv" ]; then
@@ -125,10 +140,8 @@ if [ -f /.dockerenv ]; then
         fi
         python --version
     fi
-    set +x
     return
 fi
-set +x
 
 function install_run {
     # Install wheel, run tests
