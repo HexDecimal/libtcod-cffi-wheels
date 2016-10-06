@@ -19,6 +19,8 @@ function run_tests {
     python -c "import tcod"
 }
 
-function shell_session_update{
-    return
-}
+if [ -n "$IS_OSX" ]; then
+    function shell_session_update{
+        :;
+    }
+fi
