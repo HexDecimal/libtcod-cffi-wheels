@@ -9,15 +9,18 @@ function pre_build {
         brew install sdl2
     else
         set -x
+        yum search mesa
+        yum search dbus
         #yum -y install mesa-libGL-devel
-        yum -y install build-essential make cmake autoconf automake libtool libasound2-dev libpulse-dev libaudio-dev libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxi-dev libxinerama-dev libxxf86vm-dev libxss-dev libgl1-mesa-dev libesd0-dev libdbus-1-dev libudev-dev libgles1-mesa-dev libgles2-mesa-dev libegl1-mesa-dev libibus-1.0-dev
+        yum -y install build-essential make cmake autoconf automake libtool libasound2-devel libpulse-devel libaudio-devel libx11-devel libxext-devel libxrandr-devel libxcursor-devel libxi-devel libxinerama-devel libxxf86vm-devel libxss-devel libgl1-mesa-devel libesd0-devel libdbus-1-devel libudevel-devel libgles1-mesa-devel libgles2-mesa-devel libegl1-mesa-devel libibus-1.0-devel
         cd SDL-mirror
-        ls -a
         mkdir -p build
         cd build
         ../configure
         make
         make install
+        ls -a
+        cd ../..
         set +x
     fi
 }
