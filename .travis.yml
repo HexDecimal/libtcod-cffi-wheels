@@ -74,6 +74,10 @@ matrix:
       language: generic
       env:
         - MB_PYTHON_VERSION=3.5
+    - os: osx
+      language: generic
+      env:
+        - PYPY_VERSION=5.4.1
 
 before_install:
     - rvm get stable --auto-dotfiles
