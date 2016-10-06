@@ -16,10 +16,12 @@ function pre_build {
         cd SDL-mirror
         mkdir -p build
         cd build
-        ../configure
+        ../configure --prefix=/usr --exec-prefix=/usr
         make
         make install
         ls -a
+        ls include
+        ls build
         cd ../..
         set +x
     fi
