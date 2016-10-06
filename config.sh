@@ -8,7 +8,8 @@ function pre_build {
     if [ -n "$IS_OSX" ]; then
         brew install sdl2
     else
-        yum -y install SDL2* mesa-libGL-devel
+        yum search sdl2
+        yum -y install libsdl2* mesa-libGL-devel
     fi
 }
 
@@ -16,4 +17,8 @@ function run_tests {
     # Runs tests on installed distribution from an empty directory
     python --version
     python -c "import tcod"
+}
+
+function shell_session_update{
+    :
 }
