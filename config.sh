@@ -20,5 +20,5 @@ function run_tests {
 }
 
 function shell_session_update{
-    :
+    return
 }
