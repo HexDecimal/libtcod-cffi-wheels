@@ -6,9 +6,9 @@ function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
     if [ -n "$IS_OSX" ]; then
-        brew install sdl
+        brew install sdl2
     else
-        yum -y install SDL* mesa-libGL-devel
+        yum -y install SDL2* mesa-libGL-devel
     fi
 }
 
