@@ -8,8 +8,8 @@ function pre_build {
     if [ -n "$IS_OSX" ]; then
         brew install sdl2
     else
-        yum search sdl2
-        yum -y install libsdl2* mesa-libGL-devel
+        emerge libsdl2
+        yum -y install  mesa-libGL-devel
     fi
 }
 
