@@ -18,9 +18,3 @@ function run_tests {
     python --version
     python -c "import tcod"
 }
-
-if [ -n "$IS_OSX" ]; then
-    function shell_session_update{
-        :;
-    }
-fi
