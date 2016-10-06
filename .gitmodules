@@ -4,3 +4,6 @@
 [submodule "libtcod-cffi"]
 	path = libtcod-cffi
 	url = https://github.com/HexDecimal/libtcod-cffi.git
+[submodule "SDL-mirror"]
+	path = SDL-mirror
+	url = https://github.com/spurious/SDL-mirror.git

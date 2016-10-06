@@ -8,7 +8,13 @@ function pre_build {
     if [ -n "$IS_OSX" ]; then
         brew install sdl2
     else
-        yum -y install hg mesa-libGL-devel
+        yum -y install mesa-libGL-devel
+        cd SDL-mirror
+        mkdir build
+        cd build
+        ../configure
+        make
+        make install
     fi
 }
 
