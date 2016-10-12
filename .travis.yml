@@ -78,6 +78,10 @@ matrix:
       language: generic
       env:
         - PYPY_VERSION=5.4
+    - os: osx
+      language: generic
+      env:
+        - PYPY3_VERSION=5.5.0
 
 before_install:
     - rvm get stable --auto-dotfiles
