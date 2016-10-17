@@ -24,6 +24,7 @@ function pre_build {
         ls build
         cd ../..
         set +x
+        yum -y install libffi libffi-devel
     fi
 }
 
