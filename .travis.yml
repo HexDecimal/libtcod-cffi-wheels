@@ -2,9 +2,9 @@ env:
     global:
         - REPO_DIR=libtcod-cffi
         # Commit from your-project that you want to build
-        - BUILD_COMMIT="v2.0a"
+        - BUILD_COMMIT="v2.0a1"
         # pip dependencies to _build_ your project
-        - BUILD_DEPENDS="cffi"
+        - BUILD_DEPENDS=""
         # pip dependencies to _test_ your project.  Include any dependencies
         # that you need, that are also specified in BUILD_DEPENDS, this will be
         # a separate install.
@@ -81,7 +81,7 @@ matrix:
     - os: osx
       language: generic
       env:
-        - PYPY3_VERSION=5.5.0
+        - PYPY3_VERSION=5.5.0-alpha
 
 before_install:
     - rvm get stable --auto-dotfiles
