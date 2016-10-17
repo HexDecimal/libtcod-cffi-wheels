@@ -2,6 +2,21 @@
 # Define custom utilities
 # Test for OSX with [ -n "$IS_OSX" ]
 
+function repair_wheelhouse {
+    local in_dir=$1
+    local out_dir=${2:-$in_dir}
+    for whl in $in_dir/*.whl; do
+        if [[ $whl == *none-any.whl ]]; then  # Pure Python wheel
+            if [ "$in_dir" != "$out_dir" ]; then cp $whl $out_dir; fi
+        else
+            auditwheel repair -v $whl -w $out_dir/
+            # Remove unfixed if writing into same directory
+            if [ "$in_dir" == "$out_dir" ]; then rm $whl; fi
+        fi
+    done
+    chmod -R a+rwX $out_dir
+}
+
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
@@ -9,19 +24,13 @@ function pre_build {
         brew install sdl2
     else
         set -x
-        yum search mesa
-        yum search dbus
-        #yum -y install mesa-libGL-devel
-        yum -y install build-essential make cmake autoconf automake libtool libasound2-devel libpulse-devel libaudio-devel libx11-devel libxext-devel libxrandr-devel libxcursor-devel libxi-devel libxinerama-devel libxxf86vm-devel libxss-devel libgl1-mesa-devel libesd0-devel libdbus-1-devel libudevel-devel libgles1-mesa-devel libgles2-mesa-devel libegl1-mesa-devel libibus-1.0-devel
+        yum -y install build-essential make cmake autoconf automake libtool libasound2-devel libpulse-devel libaudio-devel libX11-devel libXext-devel libXrandr-devel libXcursor-devel libXi-devel libXinerama-devel libXxf86vm-devel libxss-devel libgl1-mesa-devel libesd0-devel dbus-devel* libudevel-devel mesa-*devel* ibus-devel*
         cd SDL-mirror
         mkdir -p build
         cd build
         ../configure --prefix=/usr --exec-prefix=/usr
         make
         make install
-        ls -a
-        ls include
-        ls build
         cd ../..
         set +x
         yum -y install libffi libffi-devel
