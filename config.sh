@@ -9,6 +9,7 @@ function repair_wheelhouse {
         if [[ $whl == *none-any.whl ]]; then  # Pure Python wheel
             if [ "$in_dir" != "$out_dir" ]; then cp $whl $out_dir; fi
         else
+            auditwheel -V
             auditwheel -vv show $whl
             auditwheel -vv repair $whl -w $out_dir/
             # Remove unfixed if writing into same directory
