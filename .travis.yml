@@ -21,12 +21,6 @@ sudo: required
 dist: trusty
 services: docker
 
-addons:
-  apt:
-    packages:
-      - libglu1-mesa
-      - libsdl2
-
 matrix:
   exclude:
     # Exclude the default Python 3.5 build
