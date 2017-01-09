@@ -24,7 +24,8 @@ services: docker
 addons:
   apt:
     packages:
-      - "libglu1-mesa:i386"
+      - libglu1-mesa
+      - libsdl2
 
 matrix:
   exclude:

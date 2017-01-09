@@ -27,11 +27,8 @@ function pre_build {
     cd SDL-mirror
     mkdir -p build
     cd build
-    if [[ -n "$IS_OSX" ]]; then
-        ../configure CC=../build-scripts/gcc-fat.sh
-    else
-        ../configure
-    fi
+    #../configure CC=../build-scripts/gcc-fat.sh
+    ../configure
     make -j3
     make install
     cd ../..
