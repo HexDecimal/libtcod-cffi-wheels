@@ -20,6 +20,12 @@ function pre_build {
         set +x
         yum -y install libffi libffi-devel
     fi
+
+    # setup Python to try and build a abi3 wheel
+    pip install "wheel>=0.30.0a0"
+    cd libtocd-cffi
+    echo "[bdist_wheel]" >> setup.cfg
+    echo "py-limited-api = cp33" >> setup.cfg
 }
 
 function run_tests {
