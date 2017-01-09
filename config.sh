@@ -37,8 +37,7 @@ function pre_build {
 function run_tests {
     # Runs tests on installed distribution from an empty directory
     if [[ -z "$IS_OSX" ]]; then
-        sudo apt-get update
-        sudo apt-get install -y libglu1-mesa:i386
+        sudo apt-get install -y libglu1-mesa
     fi
     python --version
     python -c "import tcod"
