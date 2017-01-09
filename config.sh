@@ -7,13 +7,11 @@ function pre_build {
     # Runs in the root directory of this repository.
 
     # setup Python to try and build a abi3 wheel
-    set -x
     pip install "wheel>=0.30.0a0"
     cd libtcod-cffi
     echo "[bdist_wheel]" >> setup.cfg
     echo "py-limited-api = cp33" >> setup.cfg
     cd ..
-    set +x
 
 
     if [[ -z "$IS_OSX" ]]; then
@@ -30,13 +28,12 @@ function pre_build {
     mkdir -p build
     cd build
     if [[ -n "$IS_OSX" ]]; then
-        CC = ../build-scripts/gcc-fat.sh
+        CC=../build-scripts/gcc-fat.sh
     fi
     ../configure
     make -j3
     make install
     cd ../..
-    set +x
 }
 
 function run_tests {
