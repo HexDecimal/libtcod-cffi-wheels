@@ -56,14 +56,6 @@ matrix:
       language: generic
       env:
         - MB_PYTHON_VERSION=3.4
-    - os: osx
-      language: generic
-      env:
-        - PYPY_VERSION=5.4
-    - os: osx
-      language: generic
-      env:
-        - PYPY3_VERSION=5.5
 
 before_install:
     - source multibuild/common_utils.sh
