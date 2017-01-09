@@ -20,7 +20,7 @@ function pre_build {
                libXext-devel libXrandr-devel libXcursor-devel libXi-devel \
                libXinerama-devel libXxf86vm-devel libxss-devel \
                libgl1-mesa-devel libglu1-mesa-devel libesd0-devel dbus-devel* \
-               libudevel-devel mesa-*devel* ibus-devel* \
+               libudevel-devel mesa-*devel* ibus* \
                libffi libffi-devel
     fi
     
