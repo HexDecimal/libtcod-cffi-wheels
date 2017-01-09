@@ -29,8 +29,11 @@ function pre_build {
     cd SDL-mirror
     mkdir -p build
     cd build
-    ../configure --prefix=/usr --exec-prefix=/usr
-    make
+    if [[ -n "$IS_OSX" ]]; then
+        CC = ../build-scripts/gcc-fat.sh
+    fi
+    ../configure
+    make -j3
     make install
     cd ../..
     set +x
@@ -38,6 +41,9 @@ function pre_build {
 
 function run_tests {
     # Runs tests on installed distribution from an empty directory
+    if [[ -z "$IS_OSX" ]]; then
+        yum -y install libglu1-mesa
+    fi
     python --version
     python -c "import tcod"
 }
