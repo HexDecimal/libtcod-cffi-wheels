@@ -14,25 +14,31 @@ function pre_build {
     cd ..
 
 
-    if [ -n "$IS_OSX" ]; then
-        brew install sdl2
-    else
-        set -x
-        yum -y install build-essential make cmake autoconf automake libtool libasound2-devel libpulse-devel libaudio-devel libX11-devel libXext-devel libXrandr-devel libXcursor-devel libXi-devel libXinerama-devel libXxf86vm-devel libxss-devel libgl1-mesa-devel libesd0-devel dbus-devel* libudevel-devel mesa-*devel* ibus-devel*
-        cd SDL-mirror
-        mkdir -p build
-        cd build
-        ../configure --prefix=/usr --exec-prefix=/usr
-        make
-        make install
-        cd ../..
-        set +x
-        yum -y install libffi libffi-devel
+    if [[ -z "$IS_OSX" ]]; then
+        yum -y install build-essential make cmake autoconf automake libtool \
+            *asound2-devel *pulse-devel *audio-devel libX11-devel \
+            libXext-devel libXrandr-devel libXcursor-devel libXi-devel \
+            libXinerama-devel libXxf86vm-devel libxss-devel \
+            libgl1-mesa-devel libgl*-mesa-devel libesd0-devel dbus-devel* \
+            libudevel-devel mesa-*devel* *ibus* \
+            libffi libffi-devel *sdl2-devel
     fi
+    
+    cd SDL-mirror
+    mkdir -p build
+    cd build
+    #../configure CC=../build-scripts/gcc-fat.sh
+    ../configure
+    make -j3
+    make install
+    cd ../..
 }
 
 function run_tests {
     # Runs tests on installed distribution from an empty directory
+    if [[ -z "$IS_OSX" ]]; then
+        sudo apt-get install -y libglu1-mesa
+    fi
     python --version
     python -c "import tcod"
 }
