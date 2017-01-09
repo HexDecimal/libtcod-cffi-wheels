@@ -28,9 +28,10 @@ function pre_build {
     mkdir -p build
     cd build
     if [[ -n "$IS_OSX" ]]; then
-        CC=../build-scripts/gcc-fat.sh
+        ../configure CC=../build-scripts/gcc-fat.sh
+    else
+        ../configure
     fi
-    ../configure
     make -j3
     make install
     cd ../..
@@ -39,7 +40,7 @@ function pre_build {
 function run_tests {
     # Runs tests on installed distribution from an empty directory
     if [[ -z "$IS_OSX" ]]; then
-        yum -y install libglu1-mesa
+        sudo apt-get install -y libglu1-mesa:i386
     fi
     python --version
     python -c "import tcod"
