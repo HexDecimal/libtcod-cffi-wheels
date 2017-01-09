@@ -7,28 +7,33 @@ function pre_build {
     # Runs in the root directory of this repository.
 
     # setup Python to try and build a abi3 wheel
+    set -x
     pip install "wheel>=0.30.0a0"
     cd libtcod-cffi
     echo "[bdist_wheel]" >> setup.cfg
     echo "py-limited-api = cp33" >> setup.cfg
     cd ..
+    set +x
 
 
-    if [ -n "$IS_OSX" ]; then
-        brew install sdl2
-    else
-        set -x
-        yum -y install build-essential make cmake autoconf automake libtool libasound2-devel libpulse-devel libaudio-devel libX11-devel libXext-devel libXrandr-devel libXcursor-devel libXi-devel libXinerama-devel libXxf86vm-devel libxss-devel libgl1-mesa-devel libesd0-devel dbus-devel* libudevel-devel mesa-*devel* ibus-devel*
-        cd SDL-mirror
-        mkdir -p build
-        cd build
-        ../configure --prefix=/usr --exec-prefix=/usr
-        make
-        make install
-        cd ../..
-        set +x
-        yum -y install libffi libffi-devel
+    if [[ -z "$IS_OSX" ]]; then
+        yum -y install build-essential make cmake autoconf automake libtool \
+               libasound2-devel libpulse-devel libaudio-devel libX11-devel \
+               libXext-devel libXrandr-devel libXcursor-devel libXi-devel \
+               libXinerama-devel libXxf86vm-devel libxss-devel \
+               libgl1-mesa-devel libglu1-mesa-devel libesd0-devel dbus-devel* \
+               libudevel-devel mesa-*devel* ibus-devel* \
+               libffi libffi-devel
     fi
+    
+    cd SDL-mirror
+    mkdir -p build
+    cd build
+    ../configure --prefix=/usr --exec-prefix=/usr
+    make
+    make install
+    cd ../..
+    set +x
 }
 
 function run_tests {
